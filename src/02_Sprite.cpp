@@ -7,7 +7,7 @@ int main()
 
     // Cargar la imagen desde un archivo
     sf::Texture texture;
-    if (!texture.loadFromFile("assets/images/pikachu.png"))
+    if (!texture.loadFromFile("assets/images/Gum Bot sprites.png"))
     {
         // Manejo de error si no se puede cargar la imagen
         return -1;
@@ -40,7 +40,7 @@ int main()
         if (clock.getElapsedTime().asSeconds() >= frameTime)
         {
             currentFrame = (currentFrame + 1) % numFrames;
-            sprite.setTextureRect(sf::IntRect((currentFrame * 64)+17, 133, 64, 36));
+            sprite.setTextureRect(sf::IntRect((currentFrame * 32)+17, 133, 64, 36));
             clock.restart();
         }
 

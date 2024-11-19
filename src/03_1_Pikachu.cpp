@@ -11,7 +11,7 @@ public:
 
         // Cargar la imagen desde un archivo
         
-        if (!texture.loadFromFile("assets/images/robot_sheet.png"))
+        if (!texture.loadFromFile("assets/images/Gum Bot sprites.png"))
         {
         
         }
@@ -36,7 +36,7 @@ public:
         if (clock.getElapsedTime().asSeconds() >= frameTime)
         {
             currentFrame = (currentFrame + 1) % numFrames;
-            sprite.setTextureRect(sf::IntRect((currentFrame * 64)+17, 133, 64, 36));
+            sprite.setTextureRect(sf::IntRect((currentFrame * 32)+27, 133, 64, 36));
             clock.restart();
         }
     }
@@ -59,7 +59,7 @@ int main()
 {
     sf::RenderWindow window(sf::VideoMode(800, 600), "DinoChrome");
 
-    Personaje pika(sf::Vector2f(400, 300), sf::Color::Red);
+    Personaje robot(sf::Vector2f(400, 300), sf::Color::Red);
 
     while (window.isOpen())
     {
@@ -74,26 +74,26 @@ int main()
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
         {
-            pika.move(velocidad * -1, 0);
+            robot.move(velocidad * -1, 0);
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
         {
-            pika.move(velocidad, 0);
+            robot.move(velocidad, 0);
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
         {
-            pika.move(0, velocidad * -1);
+            robot.move(0, velocidad * -1);
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
         {
-            pika.move(0, velocidad);
+            robot.move(0, velocidad);
         }
 
         // Actualizar animacion pikachu
-        pika.update();
+        robot.update();
 
         window.clear();
-        pika.draw(window);
+        robot.draw(window);
         window.display();
     }
 

@@ -1,8 +1,14 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-voidBegin(const sf::Window& window);
+class Game
+{
+private:
+    sf::CircleShape circle; // Atributo interno para renderizar un círculo
 
-void Update(float deltaTime);
-void Render(sf::RenderWindow& window);
-
+public:
+    Game(); // Constructor
+    void Begin(sf::RenderWindow& window);
+    void Update(float deltaTime);
+    void Render(sf::RenderWindow& window);
+};

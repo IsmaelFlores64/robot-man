@@ -1,7 +1,15 @@
-# EjemplosJuego
+# Robot-man
+
+En la inmensidad del internet en lo mas recondito de la web existe un pequeño archivo llamado robot.png
+El pequeño siempre soñó con combatir el mal que atormentaba los repositorios de github
+Bajo el sobrenombre robot-man el pequeño decidio salir de su carpeta en busca de cumplir con su objetivo 
+Su misión es destruir el ejercito troyano que azotaba su comunidad
+Será que el pequeño robot-man lograra derrotar al Error404 y salvar a sus amigos?
+
+## Sistemas
 
 El proyecto esta desarrollado sobre MinGW64 utilizando Msys2
-y como editor se esta utilizando Visual Studio Code
+El editor que se esta utilizando Visual Studio Code
 
 ## Como ejecutar los ejemplos
 
@@ -25,11 +33,18 @@ Instalar Msys2 usando el siguiente [Enlace.](https://github.com/msys2/msys2-inst
 
 No modificar ningua opcion al momento de intalacion o podrian variar las configuraciones.
 
-Una vez instalado es necesario agregar los siguientes directorios al path de windows y reiniciar.
+Una vez instalado es necesario agregar directorios al path de windows.
+
+Para agregar directorios es necesario abrir el path de windows
+Ir a variables de entorno
+Path
+Pegar los siguientes directorios: 
 
 > C:\msys64\mingw64\bin
 
 > C:\msys64\usr\bin
+
+Reiniciar
 
 ### Github Desktop
 Cliente de escritorio para clonar el repositorio, descargar usando el siguiente [enlace](https://desktop.github.com/).

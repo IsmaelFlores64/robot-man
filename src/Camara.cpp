@@ -1,18 +1,14 @@
-#include "Camera.h"
+#include "Camara.h"
+
 
 Camera::Camera(float zoomLevel)
-    :zoomLevel(zoomLevel)
-{
+    : zoomLevel(zoomLevel) {}
+
+
+sf::View Camera::GetView(const sf::Vector2u& windowSize) const {
+    sf::View view;
+    view.setSize(windowSize.x * zoomLevel, windowSize.y * zoomLevel); // Aplica el zoom
+    view.setCenter(windowSize.x / 2.0f, windowSize.y / 2.0f); // Centrar la vista
+    return view;
 }
 
-sf::View Camera::GetView(sf::Vector2u windowSize)
-{
-    float aspect = (float)windowSize.x / (float)windowSize.y;
-    sf::Vector2f size{};
-    if (aspect < 1.0f)
-        size = sf::Vector2f(zoomLevel, zoomLevel / aspect);
-    else
-        size = sf::Vector2f(zoomLevel *  aspect, zoomLevel);
-
-    return sf::View(sf::Vector2f(0 , 0), size);
-}

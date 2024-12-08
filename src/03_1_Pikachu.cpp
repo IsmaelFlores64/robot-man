@@ -11,7 +11,7 @@ public:
 
         // Cargar la imagen desde un archivo
         
-        if (!texture.loadFromFile("assets/images/Gum Bot sprites.png"))
+        if (!texture.loadFromFile("assets/images/Computer Dude Run.png"))
         {
         
         }

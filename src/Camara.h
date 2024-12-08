@@ -1,12 +1,16 @@
-#pragma once
+#ifndef CAMERA_H
+#define CAMERA_H
 
 #include <SFML/Graphics.hpp>
 
-class Camera
-{
-    public:
-        Camera(float zoomLevel = 5.0f);
-        sf::View GetView(sf::Vector2u windowSize);
+class Camera {
+public:
+    explicit Camera(float zoomLevel); 
+    sf::View GetView(const sf::Vector2u& windowSize) const; 
 
-        float zoomLevel;
+private:
+    float zoomLevel; 
 };
+
+#endif 
+

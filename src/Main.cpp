@@ -1,35 +1,32 @@
 #include <SFML/Graphics.hpp>
-#include "Game.h"
 
 int main() {
-    // Configuración inicial de la ventana y el juego
-    Game game;
-    sf::RenderWindow window(sf::VideoMode(1200, 900), "Megaman");
-    sf::Clock deltaClock; // Reloj para medir deltaTime
 
-    game.Begin(window); // Configuración inicial del juego
+    sf::RenderWindow window(sf::VideoMode(800, 600), "MegaMan Style Game");
 
-    // Bucle principal del juego
+
+    sf::RectangleShape player(sf::Vector2f(50.0f, 50.0f));
+    player.setFillColor(sf::Color::Blue);
+    player.setPosition(375.0f, 300.0f);
+
+
     while (window.isOpen()) {
-        // Calcula el tiempo transcurrido desde el último frame
-        float deltaTime = deltaClock.restart().asSeconds();
-
-        // Manejo de eventos
-        sf::Event event{};
+        sf::Event event;
         while (window.pollEvent(event)) {
-            if (event.type == sf::Event::Closed) {
-                window.close(); // Cierra la ventana
-            }
+            if (event.type == sf::Event::Closed)
+                window.close();
         }
 
-        // Lógica del juego
-        game.Update(deltaTime);
 
-        // Renderizado
-        window.clear();        // Limpia la pantalla
-        game.Render(window);   // Dibuja los elementos del juego
-        window.display();      // Muestra en la pantalla
+        window.clear();
+
+
+        window.draw(player);
+
+
+        window.display();
     }
 
     return 0;
 }
+

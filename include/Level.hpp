@@ -6,17 +6,19 @@
 
 class Level {
 public:
-    Level(const sf::Vector2u& windowSize);  // Constructor
-
-    void initPlatforms(const sf::Vector2u& windowSize);  // Iniciar plataformas
-    void addAdditionalPlatforms(const sf::Vector2u& windowSize);  // Añadir plataformas adicionales
-    void update(float deltaTime);  // Actualizar el nivel (plataformas en movimiento)
-    void draw(sf::RenderWindow& window);  // Dibujar el nivel
+    Level(const sf::Vector2u& windowSize);
+    void initPlatforms(const sf::Vector2u& windowSize);
+    void addAdditionalPlatforms(const sf::Vector2u& windowSize);
+    void update(float deltaTime);
+    void updateMovingPlatforms(float deltaTime);
+    void draw(sf::RenderWindow& window);
 
 private:
-    void updateMovingPlatforms(float deltaTime);  // Función privada para actualizar plataformas móviles
-
-    std::vector<sf::RectangleShape> platforms;  // Contenedor para las plataformas
+    sf::Texture backgroundTexture;
+    sf::Texture groundTexture;
+    sf::Texture platformTexture; // Declaración de platformTexture
+    sf::Sprite backgroundSprite;
+    std::vector<sf::RectangleShape> platforms;
 };
 
 #endif

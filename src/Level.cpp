@@ -1,42 +1,81 @@
 #include "Level.hpp"
+#include <SFML/Graphics.hpp>
+#include <iostream>
 
+// Constructor de la clase Level
 Level::Level(const sf::Vector2u& windowSize) {
-    initPlatforms(windowSize);  // Llamar a la función para inicializar plataformas
+    // Intentar cargar la textura de fondo
+    std::cout << "Cargando fondo: C:/ruta/completa/a/tu/proyecto/assets/images/Future.png" << std::endl;
+    if (!backgroundTexture.loadFromFile("C:/ruta/completa/a/tu/proyecto/assets/images/Future.png")) {
+        std::cerr << "Error loading background image!" << std::endl;
+    } else {
+        backgroundSprite.setTexture(backgroundTexture);  // Asignar la textura a un sprite
+    }
+
+    // Intentar cargar la textura de la plataforma de fondo (Ground)
+    std::cout << "Cargando Ground: C:/ruta/completa/a/tu/proyecto/assets/images/Ground.png" << std::endl;
+    if (!groundTexture.loadFromFile("C:/ruta/completa/a/tu/proyecto/assets/images/Ground.png")) {
+        std::cerr << "Error loading ground image!" << std::endl;
+    }
+
+    // Intentar cargar la textura para las plataformas adicionales (future_city.png)
+    std::cout << "Cargando Future City: C:/ruta/completa/a/tu/proyecto/assets/images/future_city.png" << std::endl;
+    if (!platformTexture.loadFromFile("C:/ruta/completa/a/tu/proyecto/assets/images/future_city.png")) {
+        std::cerr << "Error loading future_city image!" << std::endl;
+    }
+
+    initPlatforms(windowSize);  // Inicializar las plataformas
 }
 
 void Level::initPlatforms(const sf::Vector2u& windowSize) {
-    // Crear una plataforma base extendida a lo largo de la nueva ventana
-    sf::RectangleShape ground(sf::Vector2f(windowSize.x, 50));  // Plataforma extendida a lo largo del largo de la ventana
-    ground.setFillColor(sf::Color(139, 69, 19)); // Marrón
-    ground.setPosition(0, windowSize.y - 50);  // Posición al fondo
+    // Crear la plataforma base con la imagen de fondo (Ground)
+    sf::RectangleShape ground(sf::Vector2f(windowSize.x, 50));  // Plataforma base a lo largo de la ventana
+    if (groundTexture.getSize().x != 0 && groundTexture.getSize().y != 0) {
+        ground.setTexture(&groundTexture);  // Asignar la textura al rectángulo
+    } else {
+        ground.setFillColor(sf::Color(139, 69, 19));  // Color marrón en caso de error
+    }
+    ground.setPosition(0, windowSize.y - 50);  // Posición en la parte inferior de la ventana
     platforms.push_back(ground);
 
-    // Crear plataformas más pequeñas, esparcidas a lo largo del largo
-    sf::RectangleShape platform1(sf::Vector2f(200, 20));  // Plataforma 1 extendida de largo
-    platform1.setFillColor(sf::Color::Green);
-    platform1.setPosition(200, 400);  // Esparcida
+    // Crear plataformas adicionales con la textura future_city.png
+    sf::RectangleShape platform1(sf::Vector2f(200, 20));
+    if (platformTexture.getSize().x != 0 && platformTexture.getSize().y != 0) {
+        platform1.setTexture(&platformTexture);  // Asignar la textura de future_city
+    } else {
+        platform1.setFillColor(sf::Color::Green);  // Color verde en caso de error
+    }
+    platform1.setPosition(200, 400);
     platforms.push_back(platform1);
 
-    sf::RectangleShape platform2(sf::Vector2f(200, 20));  // Plataforma 2 extendida de largo
-    platform2.setFillColor(sf::Color::Blue);
-    platform2.setPosition(600, 300);  // Esparcida
+    sf::RectangleShape platform2(sf::Vector2f(200, 20));
+    if (platformTexture.getSize().x != 0 && platformTexture.getSize().y != 0) {
+        platform2.setTexture(&platformTexture);  // Asignar la textura de future_city
+    } else {
+        platform2.setFillColor(sf::Color::Blue);  // Color azul en caso de error
+    }
+    platform2.setPosition(600, 300);
     platforms.push_back(platform2);
 
-    sf::RectangleShape platform3(sf::Vector2f(200, 20));  // Plataforma 3 extendida de largo
-    platform3.setFillColor(sf::Color::Yellow);
-    platform3.setPosition(1000, 200);  // Esparcida
+    sf::RectangleShape platform3(sf::Vector2f(200, 20));
+    if (platformTexture.getSize().x != 0 && platformTexture.getSize().y != 0) {
+        platform3.setTexture(&platformTexture);  // Asignar la textura de future_city
+    } else {
+        platform3.setFillColor(sf::Color::Yellow);  // Color amarillo en caso de error
+    }
+    platform3.setPosition(1000, 200);
     platforms.push_back(platform3);
 
-    // Plataformas móviles
-    sf::RectangleShape movingPlatform1(sf::Vector2f(200, 20));  // Plataforma móvil 1 extendida de largo
+    // Plataformas móviles (sin imágenes de fondo)
+    sf::RectangleShape movingPlatform1(sf::Vector2f(200, 20));
     movingPlatform1.setFillColor(sf::Color::Red);
-    movingPlatform1.setPosition(1200, 150);  // Esparcida
+    movingPlatform1.setPosition(1200, 150);
     movingPlatform1.setOrigin(movingPlatform1.getSize().x / 2, movingPlatform1.getSize().y / 2);
     platforms.push_back(movingPlatform1);
 
-    sf::RectangleShape movingPlatform2(sf::Vector2f(200, 20));  // Plataforma móvil 2 extendida de largo
+    sf::RectangleShape movingPlatform2(sf::Vector2f(200, 20));
     movingPlatform2.setFillColor(sf::Color::Cyan);
-    movingPlatform2.setPosition(1600, 100);  // Esparcida
+    movingPlatform2.setPosition(1600, 100);
     movingPlatform2.setOrigin(movingPlatform2.getSize().x / 2, movingPlatform2.getSize().y / 2);
     platforms.push_back(movingPlatform2);
 
@@ -45,27 +84,38 @@ void Level::initPlatforms(const sf::Vector2u& windowSize) {
 }
 
 void Level::addAdditionalPlatforms(const sf::Vector2u& windowSize) {
-    // Crear plataformas adicionales, esparcidas a lo largo del largo
-    sf::RectangleShape platform4(sf::Vector2f(200, 20));  // Plataforma adicional 1
-    platform4.setFillColor(sf::Color(255, 165, 0)); // Naranja
-    platform4.setPosition(2000, 300);  // Esparcida
+    // Crear plataformas adicionales con la textura future_city.png
+    sf::RectangleShape platform4(sf::Vector2f(200, 20));
+    if (platformTexture.getSize().x != 0 && platformTexture.getSize().y != 0) {
+        platform4.setTexture(&platformTexture);  // Asignar la textura de future_city
+    } else {
+        platform4.setFillColor(sf::Color(255, 165, 0)); // Naranja en caso de error
+    }
+    platform4.setPosition(2000, 300);
     platforms.push_back(platform4);
 
-    // Cambiar el color 'Purple' por un color válido
-    sf::RectangleShape platform5(sf::Vector2f(200, 20));  // Plataforma adicional 2
-    platform5.setFillColor(sf::Color(128, 0, 128)); // Morado (RGB)
-    platform5.setPosition(2400, 400);  // Esparcida
+    sf::RectangleShape platform5(sf::Vector2f(200, 20));
+    if (platformTexture.getSize().x != 0 && platformTexture.getSize().y != 0) {
+        platform5.setTexture(&platformTexture);  // Asignar la textura de future_city
+    } else {
+        platform5.setFillColor(sf::Color(128, 0, 128)); // Morado en caso de error
+    }
+    platform5.setPosition(2400, 400);
     platforms.push_back(platform5);
 
-    sf::RectangleShape platform6(sf::Vector2f(200, 20));  // Plataforma adicional 3
-    platform6.setFillColor(sf::Color(255, 255, 0)); // Amarillo
-    platform6.setPosition(2800, 500);  // Esparcida
+    sf::RectangleShape platform6(sf::Vector2f(200, 20));
+    if (platformTexture.getSize().x != 0 && platformTexture.getSize().y != 0) {
+        platform6.setTexture(&platformTexture);  // Asignar la textura de future_city
+    } else {
+        platform6.setFillColor(sf::Color(255, 255, 0)); // Amarillo en caso de error
+    }
+    platform6.setPosition(2800, 500);
     platforms.push_back(platform6);
 }
 
 void Level::update(float deltaTime) {
     // Actualizar las plataformas móviles
-    updateMovingPlatforms(deltaTime);  // Llamar a la función que actualiza las plataformas móviles
+    updateMovingPlatforms(deltaTime);
 }
 
 void Level::updateMovingPlatforms(float deltaTime) {
@@ -92,6 +142,9 @@ void Level::updateMovingPlatforms(float deltaTime) {
 }
 
 void Level::draw(sf::RenderWindow& window) {
+    // Dibujar el fondo
+    window.draw(backgroundSprite);
+
     // Dibujar todas las plataformas
     for (auto& platform : platforms) {
         window.draw(platform);

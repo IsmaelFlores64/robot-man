@@ -1,78 +1,84 @@
+![Robot-man](assets/images/Robotman2.jpg)
+
 # Robot-man
 
-En la inmensidad del internet en lo mas recondito de la web existe un pequeño archivo llamado robot.png
-El pequeño siempre soñó con combatir el mal que atormentaba los repositorios de github
-Bajo el sobrenombre robot-man el pequeño decidio salir de su carpeta en busca de cumplir con su objetivo 
-Su misión es destruir el ejercito troyano que azotaba su comunidad
-Será que el pequeño robot-man lograra derrotar al Error404 y salvar a sus amigos?
+In the vastness of the internet, in the deepest recesses of the web, there is a small file called robot.png
+The little boy always dreamed of fighting the evil that tormented the github repositories  
+Under the nickname Robot-man, the little boy decides to leave his folder seeking to fulfill his objective, destroy the Trojan army that plagued his community.  
+Will the little robot-man be able to defeat Error404 and save his friends?
 
-## Sistemas
+## Systems
 
-El proyecto esta desarrollado sobre MinGW64 utilizando Msys2
-El editor que se esta utilizando Visual Studio Code
+The project is developed on MinGW64 using Msys2  
+The editor being used is Visual Studio Code
 
-## Como ejecutar los ejemplos
+## How to run the game
 
-Instalar todas las dependencias descritas abajo y dentro de una terminal de vscode ejecutar:
+Install all the dependencies described below and run in a vscode terminal:
 
-> make run'NombreEjecutable'
+> make run'ExecutableName'
 
-Por ejemplo para ejecutar '00_Ventana.cpp' correr el comando en la terminal de vscode:
+For example, to run 'Robotman.cpp' run the command in the vscode terminal:
 
-> make run00_Ventana
+> make runRobotman
 
 
-## Programas necesarios
+## Required programs
 
-### Visual estudio code
-Descargar e instalar vscode en el siguiente [Enlace.](https://code.visualstudio.com/)
+### Visual studio code
+Download and install vscode in the following [link.](https://code.visualstudio.com/)
 
 ### MSYS2 (Windows)
 
-Instalar Msys2 usando el siguiente [Enlace.](https://github.com/msys2/msys2-installer/releases/download/2023-05-26/msys2-x86_64-20230526.exe)
+Install Msys2 using the following [link.](https://github.com/msys2/msys2-installer/releases/download/2023-05-26/msys2-x86_64-20230526.exe)
 
-No modificar ningua opcion al momento de intalacion o podrian variar las configuraciones.
+Do not modify any options at the time of installation or the configurations may change.
 
-Una vez instalado es necesario agregar directorios al path de windows.
+Once installed, it is necessary to add directories to the Windows path.
 
-Para agregar directorios es necesario abrir el path de windows
-Ir a variables de entorno
-Path
-Pegar los siguientes directorios: 
+To add directories, it is necessary to open the Windows path  
+Go to environment variables  
+Path  
+Paste the following directories:
 
 > C:\msys64\mingw64\bin
 
 > C:\msys64\usr\bin
 
-Reiniciar
+Reboot the system
 
 ### Github Desktop
-Cliente de escritorio para clonar el repositorio, descargar usando el siguiente [enlace](https://desktop.github.com/).
+
+Desktop client to clone the repository, download using the following [link.](https://desktop.github.com/).
 
 ### Git
-Para poder realizar commits de vscode es necesario tener instalado Git, descargarlo del siguiente [enlace](https://git-scm.com/).
 
+In order to commit vscode you need to have Git installed, download it from the following [link.](https://git-scm.com/).
 
-## Librerias utilizadas (Msys2)
+## Libraries used (Msys2)
 
-Ejecutar los siguientes comandos en la terminal de msys2 para instalar las dependencias necesarias
+Run the following commands in the msys2 terminal to install the necessary dependencies 
+Copy and paste
 
 ### DevTools
-Compiladores y herramientas necesarias para el desarrollo.
+
+Compilers and tools needed for development.
 
 https://code.visualstudio.com/docs/cpp/config-mingw
 > pacman -S --needed base-devel mingw-w64-x86_64-toolchain
 
 ### SFML
+
 https://packages.msys2.org/package/mingw-w64-x86_64-sfml
 > pacman -S mingw-w64-x86_64-sfml
 
-### Box2D simulaciones de fisica - C++
+### Box2D physics simulations - C++
+
 https://box2d.org/documentation/
 https://packages.msys2.org/package/mingw-w64-x86_64-box2d?repo=mingw64
 pacman -S mingw-w64-x86_64-box2d
 
-## Complementos necesarios VSCode
+## VSCode Required Plugins
 
 - Material Icon
 - C/C++

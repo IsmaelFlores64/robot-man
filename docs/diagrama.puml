@@ -1,0 +1,55 @@
+@startuml Robot-man
+class RobotMan
+{
++saltar
++correr(movimiento)
++disparar
+}
+class Enemigo
+{
++disparar
+}
+class Plataforma
+class LocalArcade
+class RobotmanJuego
+{
+    -Enemigo: _Enemigo_[4]
+    -Robotman
+}
+class Personaje
+class Escenario
+class Mapa
+class Color
+class Bala
+class Arma
+class Dificultad
+class Animacion
+class Movimiento
+{
++salto()
++agachado()
++izquierda()
++derecha()
+}
+class Jugador 
+class Nivel
+class Musica
+class Computadora
+
+Computadora *--RobotmanJuego
+RobotmanJuego *--Mapa
+Mapa --|> Nivel
+RobotmanJuego *-- Personaje
+Robotman --|> Personaje
+Robotman *-- Color
+Enemigo --|> Personaje
+Enemigo *-- Color
+RobotmanJuego *-- Fantasma
+LocalArcade *-- Computadora
+Enemigo *-- Movimiento
+Jugador o-- Robotman
+Nivel *-- Dificultad
+Animacion o-- Movimiento
+Escenario *-- Mapa
+
+@enduml

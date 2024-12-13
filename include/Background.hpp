@@ -1,14 +1,14 @@
-// Background.hpp
 #ifndef BACKGROUND_HPP
 #define BACKGROUND_HPP
 
 #include <SFML/Graphics.hpp>
 #include <string>
 
-class Background {
+class Background
+{
 public:
-    Background(const std::string& imagePath);
-    void draw(sf::RenderWindow& window);
+    Background(const std::string &imagePath);
+    void draw(sf::RenderWindow &window);
 
 private:
     sf::Texture texture;

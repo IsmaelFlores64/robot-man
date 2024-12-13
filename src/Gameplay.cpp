@@ -4,30 +4,27 @@
 #include <vector>
 using namespace std;
 
-int main() {
+int main()
+{
     int fuerza = 1;
-    float frameTime = 0.1f; // Tiempo entre fotogramas de animación
+    float frameTime = 0.1f;
     float acumuladorTiempo = 0.0f;
-    int frameActual = 0;           
-    int numFramesMovimiento = 6;   
-    float tiempoEntreDisparos = 0.5f; // Tiempo mínimo entre disparos (en segundos)
+    int frameActual = 0;
+    int numFramesMovimiento = 6;
+    float tiempoEntreDisparos = 0.5f;
     float tiempoDesdeUltimoDisparo = 0.0f;
-    bool puedeSaltar = true; // Controlar si el personaje puede saltar
+    bool puedeSaltar = true;
 
-    // Crear una ventana de SFML
     sf::RenderWindow ventana(sf::VideoMode(800, 600), "Ejemplo de Física con Box2D y SFML");
 
-    // Crear una vista (cámara)
     sf::View camara(sf::FloatRect(0, 0, 800, 600));
 
-    // Crear un mundo de Box2D
     b2Vec2 vectorGravedad(0.0f, 10.0f);
     b2World mundo(vectorGravedad);
 
-    // Crear un suelo estático
     b2BodyDef cuerpoSueloDef;
     cuerpoSueloDef.position.Set(400, 500.0f); // Posición del centro del cuerpo
-    b2Body* cuerpoSuelo = mundo.CreateBody(&cuerpoSueloDef);
+    b2Body *cuerpoSuelo = mundo.CreateBody(&cuerpoSueloDef);
 
     // Crear una forma rectangular
     b2PolygonShape formaSuelo;
@@ -45,7 +42,7 @@ int main() {
     b2BodyDef cuerpoBolaDef;
     cuerpoBolaDef.type = b2_dynamicBody;
     cuerpoBolaDef.position.Set(400.0f, 300.0f);
-    b2Body* cuerpoBola = mundo.CreateBody(&cuerpoBolaDef);
+    b2Body *cuerpoBola = mundo.CreateBody(&cuerpoBolaDef);
 
     // Crear una forma rectangular para colisión (hitbox ajustada a 10 de ancho)
     b2PolygonShape formaBola;
@@ -61,7 +58,8 @@ int main() {
 
     // Cargar la textura de la hoja de sprites
     sf::Texture texturaBola;
-    if (!texturaBola.loadFromFile("assets/images/Robot.png")) {
+    if (!texturaBola.loadFromFile("assets/images/Robot.png"))
+    {
         cerr << "Error al cargar la textura de la hoja de sprites." << endl;
         return -1;
     }
@@ -79,20 +77,23 @@ int main() {
     spriteBola.setOrigin(spriteWidth / 2.0f, spriteHeight - 10.0f); // Ajustar los pies al suelo
 
     // Vector para almacenar balas
-    struct Bala {
+    struct Bala
+    {
         sf::CircleShape shape;
         bool moviendoDerecha;
     };
     std::vector<Bala> balas;
 
     // Bucle principal del juego
-    sf::Clock reloj; // Reloj para medir el tiempo entre fotogramas
+    sf::Clock reloj;            // Reloj para medir el tiempo entre fotogramas
     bool mirandoDerecha = true; // Para determinar la dirección del personaje
 
-    while (ventana.isOpen()) {
+    while (ventana.isOpen())
+    {
         // Procesar eventos
         sf::Event evento;
-        while (ventana.pollEvent(evento)) {
+        while (ventana.pollEvent(evento))
+        {
             if (evento.type == sf::Event::Closed)
                 ventana.close();
         }
@@ -101,23 +102,27 @@ int main() {
         bool estaMoviendose = false;
 
         // Controlar la bola con el teclado
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+        {
             cuerpoBola->SetLinearVelocity(b2Vec2(-fuerza * 10, cuerpoBola->GetLinearVelocity().y));
             mirandoDerecha = false;
             estaMoviendose = true;
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+        {
             cuerpoBola->SetLinearVelocity(b2Vec2(fuerza * 10, cuerpoBola->GetLinearVelocity().y));
             mirandoDerecha = true;
             estaMoviendose = true;
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && puedeSaltar) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && puedeSaltar)
+        {
             cuerpoBola->SetLinearVelocity(b2Vec2(cuerpoBola->GetLinearVelocity().x, -40.0f)); // Salto más fuerte
             puedeSaltar = false;
         }
 
         // Restablecer el salto al tocar el suelo
-        if (cuerpoBola->GetLinearVelocity().y == 0) {
+        if (cuerpoBola->GetLinearVelocity().y == 0)
+        {
             puedeSaltar = true;
         }
 
@@ -125,7 +130,8 @@ int main() {
         tiempoDesdeUltimoDisparo += reloj.restart().asSeconds();
 
         // Disparar una bala cuando se presiona la tecla Espacio
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && tiempoDesdeUltimoDisparo >= tiempoEntreDisparos) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && tiempoDesdeUltimoDisparo >= tiempoEntreDisparos)
+        {
             sf::CircleShape bala(5.0f); // Crear una bolita con radio de 5 píxeles
             bala.setFillColor(sf::Color::Red);
             bala.setPosition(spriteBola.getPosition());
@@ -143,13 +149,17 @@ int main() {
 
         // Actualizar la animación del sprite
         acumuladorTiempo += reloj.restart().asSeconds();
-        if (estaMoviendose) {
-            if (acumuladorTiempo >= frameTime) {
+        if (estaMoviendose)
+        {
+            if (acumuladorTiempo >= frameTime)
+            {
                 acumuladorTiempo -= frameTime;
                 frameActual = (frameActual + 1) % numFramesMovimiento;
                 spriteBola.setTextureRect(sf::IntRect(frameActual * spriteWidth, 0, spriteWidth, spriteHeight));
             }
-        } else {
+        }
+        else
+        {
             spriteBola.setTextureRect(sf::IntRect(0, 0, spriteWidth, spriteHeight));
         }
 
@@ -160,10 +170,14 @@ int main() {
         spriteBola.setPosition(posicionBola.x, posicionBola.y);
 
         // Mover las balas
-        for (auto& bala : balas) {
-            if (bala.moviendoDerecha) {
+        for (auto &bala : balas)
+        {
+            if (bala.moviendoDerecha)
+            {
                 bala.shape.move(1.0f, 0); // Velocidad de la bala reducida a 1
-            } else {
+            }
+            else
+            {
                 bala.shape.move(-1.0f, 0); // Velocidad de la bala reducida a 1
             }
         }
@@ -181,7 +195,8 @@ int main() {
         ventana.draw(spriteBola);
 
         // Dibujar las balas
-        for (auto& bala : balas) {
+        for (auto &bala : balas)
+        {
             ventana.draw(bala.shape);
         }
 

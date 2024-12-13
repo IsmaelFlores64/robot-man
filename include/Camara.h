@@ -4,11 +4,9 @@
 #include <box2d/box2d.h>
 #include <SFML/Graphics.hpp>
 
-
 class Camera : public GameObject
 {
 private:
-   
     float offset[2];
     sf::Vector2f size;
     sf::View view;
@@ -19,14 +17,15 @@ private:
     float freeCamRatio;
     sf::Vector2f freeCamSize;
     sf::View freeCamView;
-    
-    Player* player;
+
+    Player *player;
+
 public:
-    Camera(b2World* world, Player* player, sf::Vector2f spawn);
+    Camera(b2World *world, Player *player, sf::Vector2f spawn);
     ~Camera();
-    void render(sf::RenderWindow& window) override;
-    void update(float dt, sf::RenderWindow& window) override;
-    void processEvents(sf::Event event, sf::RenderWindow& window) override;
+    void render(sf::RenderWindow &window) override;
+    void update(float dt, sf::RenderWindow &window) override;
+    void processEvents(sf::Event event, sf::RenderWindow &window) override;
     void renderImgui();
     void setBounds(sf::FloatRect bounds);
 };

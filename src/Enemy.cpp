@@ -3,29 +3,35 @@
 #include <iostream>
 #include <filesystem>
 
-class Enemigo {
+class Enemigo
+{
 public:
-    Enemigo(const std::string& textureFile, float speed, int screenWidth)
-        : speed(speed), screenWidth(screenWidth) {
-        if (!texture.loadFromFile(textureFile)) {
+    Enemigo(const std::string &textureFile, float speed, int screenWidth)
+        : speed(speed), screenWidth(screenWidth)
+    {
+        if (!texture.loadFromFile(textureFile))
+        {
             throw std::runtime_error("Failed to load texture file");
         }
         sprite.setTexture(texture);
-        sprite.setScale(2.0f, 2.0f); 
+        sprite.setScale(2.0f, 2.0f);
     }
 
-    void update(float deltaTime) {
+    void update(float deltaTime)
+    {
         sf::Vector2f position = sprite.getPosition();
         position.x -= speed * deltaTime;
 
-        if (position.x + sprite.getGlobalBounds().width < 0) {
+        if (position.x + sprite.getGlobalBounds().width < 0)
+        {
             position.x = static_cast<float>(screenWidth);
         }
 
         sprite.setPosition(position);
     }
 
-    void draw(sf::RenderWindow& window) {
+    void draw(sf::RenderWindow &window)
+    {
         window.draw(sprite);
     }
 
@@ -36,13 +42,13 @@ private:
     int screenWidth;
 };
 
-int main() {
+int main()
+{
     const int screenWidth = 800;
     const int screenHeight = 600;
-    const float enemigoSpeed = 200.0f; 
+    const float enemigoSpeed = 200.0f;
     sf::RenderWindow window(sf::VideoMode(screenWidth, screenHeight), "Enemigo Animation");
     window.setFramerateLimit(60);
-
 
     std::cout << "Current working directory: " << std::filesystem::current_path() << std::endl;
 
@@ -50,10 +56,13 @@ int main() {
 
     sf::Clock clock;
 
-    while (window.isOpen()) {
+    while (window.isOpen())
+    {
         sf::Event event;
-        while (window.pollEvent(event)) {
-            if (event.type == sf::Event::Closed) {
+        while (window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+            {
                 window.close();
                 return 0;
             }

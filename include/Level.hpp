@@ -4,19 +4,20 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 
-class Level {
+class Level
+{
 public:
-    Level(const sf::Vector2u& windowSize);
-    void initPlatforms(const sf::Vector2u& windowSize);
-    void addAdditionalPlatforms(const sf::Vector2u& windowSize);
+    Level(const sf::Vector2u &windowSize);
+    void initPlatforms(const sf::Vector2u &windowSize);
+    void addAdditionalPlatforms(const sf::Vector2u &windowSize);
     void update(float deltaTime);
     void updateMovingPlatforms(float deltaTime);
-    void draw(sf::RenderWindow& window);
+    void draw(sf::RenderWindow &window);
 
 private:
     sf::Texture backgroundTexture;
     sf::Texture groundTexture;
-    sf::Texture platformTexture; 
+    sf::Texture platformTexture;
     sf::Sprite backgroundSprite;
     std::vector<sf::RectangleShape> platforms;
 };

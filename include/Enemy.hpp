@@ -3,11 +3,12 @@
 
 #include <SFML/Graphics.hpp>
 
-class Enemigo {
+class Enemigo
+{
 public:
-    Enemigo(const std::string& textureFile, float speed, int screenWidth);
+    Enemigo(const std::string &textureFile, float speed, int screenWidth);
     void update(float deltaTime);
-    void draw(sf::RenderWindow& window);
+    void draw(sf::RenderWindow &window);
 
 private:
     sf::Texture texture;
@@ -16,4 +17,4 @@ private:
     int screenWidth;
 };
 
-#endif 
+#endif

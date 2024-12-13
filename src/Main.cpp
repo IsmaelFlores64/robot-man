@@ -1,14 +1,17 @@
 #include <SFML/Graphics.hpp>
 #include "Level.hpp"
 
-int main() {
+int main()
+{
     sf::RenderWindow window(sf::VideoMode(800, 600), "Plataforma con SFML");
 
     Level level(window.getSize());
 
-    while (window.isOpen()) {
+    while (window.isOpen())
+    {
         sf::Event event;
-        while (window.pollEvent(event)) {
+        while (window.pollEvent(event))
+        {
             if (event.type == sf::Event::Closed)
                 window.close();
         }

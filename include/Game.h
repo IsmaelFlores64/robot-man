@@ -3,15 +3,16 @@
 
 #include <SFML/Graphics.hpp>
 
-class Game {
+class Game
+{
 public:
     Game(); // Constructor
-    void Begin(sf::RenderWindow& window);
+    void Begin(sf::RenderWindow &window);
     void Update(float deltaTime);
-    void Render(sf::RenderWindow& window);
+    void Render(sf::RenderWindow &window);
 
 private:
     sf::CircleShape circle;
 };
 
-#endif 
+#endif

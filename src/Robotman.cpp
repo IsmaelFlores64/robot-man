@@ -1,8 +1,9 @@
 #include <SFML/Graphics.hpp>
-#include <Box2D/Box2D.h>
 #include <SFML/Audio.hpp>
-#include <vector>
+#include <Box2D/Box2D.h>
 #include <iostream>
+#include <vector>
+#include "Level.hpp"
 using namespace std;
 
 // Mostrar configuración de controles
@@ -48,6 +49,22 @@ void mostrarConfiguracion(sf::RenderWindow &ventana, const sf::Font &font)
 int main()
 {
     sf::RenderWindow ventana(sf::VideoMode(800, 600), "Menu de Inicio");
+
+    Level level(ventana.getSize());
+
+    while (ventana.isOpen())
+    {
+        sf::Event event;
+        while (ventana.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+                ventana.close();
+        }
+
+        ventana.clear(sf::Color::Cyan); // Fondo azul cielo
+        level.draw(ventana);
+        ventana.display();
+    }
 
     // Cargar fuente
     sf::Font font;
@@ -145,22 +162,11 @@ int main()
                         b2Vec2 vectorGravedad(0.0f, 10.0f);
                         b2World mundo(vectorGravedad);
 
-                        // Crear un suelo estático
-                        b2BodyDef cuerpoSueloDef;
-                        cuerpoSueloDef.position.Set(400, 500.0f); // Posición del centro del cuerpo
-                        b2Body *cuerpoSuelo = mundo.CreateBody(&cuerpoSueloDef);
-
                         // Crear una forma rectangular
                         b2PolygonShape formaSuelo;
                         int boxWidth = 600; // 600 pixeles de ancho
                         int boxHeight = 10; // 10 pixeles de alto
                         formaSuelo.SetAsBox(boxWidth / 2.0f, boxHeight / 2.0f);
-
-                        // Agregar la forma al cuerpo
-                        b2FixtureDef fixtureSueloDef;
-                        fixtureSueloDef.shape = &formaSuelo;
-                        fixtureSueloDef.friction = 1.0f;
-                        cuerpoSuelo->CreateFixture(&fixtureSueloDef);
 
                         // Crear un cuerpo dinámico
                         b2BodyDef cuerpoBolaDef;
@@ -308,12 +314,6 @@ int main()
 
                             // Limpiar la ventana
                             ventana.clear();
-
-                            // Dibujar el suelo
-                            sf::RectangleShape suelo(sf::Vector2f(boxWidth, boxHeight));
-                            suelo.setOrigin(boxWidth / 2.0f, boxHeight / 2.0f);
-                            suelo.setPosition(cuerpoSuelo->GetPosition().x, cuerpoSuelo->GetPosition().y);
-                            ventana.draw(suelo);
 
                             // Dibujar el sprite animado
                             ventana.draw(spriteBola);

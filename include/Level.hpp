@@ -16,7 +16,7 @@ public:
 private:
     sf::Texture backgroundTexture;
     sf::Texture groundTexture;
-    sf::Texture platformTexture; // Declaración de platformTexture
+    sf::Texture platformTexture; 
     sf::Sprite backgroundSprite;
     std::vector<sf::RectangleShape> platforms;
 };

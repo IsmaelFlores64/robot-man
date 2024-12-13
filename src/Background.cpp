@@ -1,4 +1,3 @@
-// main.cpp
 #include <SFML/Graphics.hpp>
 #include "Background.hpp"
 #include <iostream>

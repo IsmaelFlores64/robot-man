@@ -1,16 +1,104 @@
-#include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
-#include <vector>
-#include <iostream>
+#include "Menu.hpp"
 
-// Mostrar configuración de controles
-void mostrarConfiguracion(sf::RenderWindow &ventana, const sf::Font &font)
+Menu::Menu()
 {
-    sf::Text titulo("CONTROLES", font, 50);
-    titulo.setPosition(200, 50);
-    titulo.setFillColor(sf::Color::Yellow);
+    // Cargar fuente
+    if (!font.loadFromFile("assets/fonts/Robotica.ttf"))
+    {
+        throw std::runtime_error("Error al cargar la fuente");
+    }
 
-    sf::Text detalles(
+    // Cargar música
+    if (!music.openFromFile("assets/music/Menu.ogg"))
+    {
+        throw std::runtime_error("Error al cargar la música");
+    }
+    music.setLoop(true);
+
+    // Cargar imagen de fondo
+    if (!backgroundTexture.loadFromFile("assets/images/Robotman2.jpg"))
+    {
+        throw std::runtime_error("Error al cargar la imagen de fondo");
+    }
+    backgroundSprite.setTexture(backgroundTexture);
+
+    // Inicializar opciones del menú
+    options = {"JUGAR", "CONTROLES", "SALIR"};
+    for (size_t i = 0; i < options.size(); ++i)
+    {
+        sf::Text text(options[i], font, 40);
+        text.setPosition(300, 200 + i * 50);
+        text.setFillColor(sf::Color::White);
+        menuTexts.push_back(text);
+    }
+    selectedOption = 0;
+    menuTexts[selectedOption].setFillColor(sf::Color::Red);
+}
+
+void Menu::playMusic()
+{
+    music.play();
+}
+
+int Menu::handleInput(sf::RenderWindow &window)
+{
+    sf::Event event;
+    while (window.pollEvent(event))
+    {
+        if (event.type == sf::Event::Closed)
+        {
+            window.close();
+        }
+        if (event.type == sf::Event::KeyPressed)
+        {
+            if (event.key.code == sf::Keyboard::Up)
+            {
+                menuTexts[selectedOption].setFillColor(sf::Color::White);
+                selectedOption = (selectedOption - 1 + options.size()) % options.size();
+                menuTexts[selectedOption].setFillColor(sf::Color::Red);
+            }
+            else if (event.key.code == sf::Keyboard::Down)
+            {
+                menuTexts[selectedOption].setFillColor(sf::Color::White);
+                selectedOption = (selectedOption + 1) % options.size();
+                menuTexts[selectedOption].setFillColor(sf::Color::Red);
+            }
+            else if (event.key.code == sf::Keyboard::Enter)
+            {
+                if (options[selectedOption] == "JUGAR")
+                {
+                    return 1; // Iniciar el juego
+                }
+                else if (options[selectedOption] == "CONTROLES")
+                {
+                    mostrarConfiguracion(window);
+                }
+                else if (options[selectedOption] == "SALIR")
+                {
+                    window.close();
+                }
+            }
+        }
+    }
+    return 0; // Continuar en el menú
+}
+
+void Menu::draw(sf::RenderWindow &window)
+{
+    window.draw(backgroundSprite);
+    for (const auto &text : menuTexts)
+    {
+        window.draw(text);
+    }
+}
+
+void Menu::mostrarConfiguracion(sf::RenderWindow &window)
+{
+    sf::Text title("CONTROLES", font, 50);
+    title.setPosition(200, 50);
+    title.setFillColor(sf::Color::Yellow);
+
+    sf::Text details(
         "- Flechas Arriba/Abajo: Moverse por el menu\n"
         "- Enter: Seleccionar una opcion\n"
         "- Flechas Izquierda/Derecha: Mover personaje\n"
@@ -18,127 +106,27 @@ void mostrarConfiguracion(sf::RenderWindow &ventana, const sf::Font &font)
         "- Flecha Arriba (en el juego): Saltar\n"
         "- Escape: Regresar al menu principal",
         font, 20);
-    detalles.setPosition(100, 150);
-    detalles.setFillColor(sf::Color::White);
+    details.setPosition(100, 150);
+    details.setFillColor(sf::Color::White);
 
-    while (ventana.isOpen())
+    while (window.isOpen())
     {
-        sf::Event evento;
-        while (ventana.pollEvent(evento))
+        sf::Event event;
+        while (window.pollEvent(event))
         {
-            if (evento.type == sf::Event::Closed)
+            if (event.type == sf::Event::Closed)
             {
-                ventana.close();
+                window.close();
             }
-            if (evento.type == sf::Event::KeyPressed && evento.key.code == sf::Keyboard::Escape)
+            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
             {
                 return;
             }
         }
 
-        ventana.clear(sf::Color::Black);
-        ventana.draw(titulo);
-        ventana.draw(detalles);
-        ventana.display();
+        window.clear(sf::Color::Black);
+        window.draw(title);
+        window.draw(details);
+        window.display();
     }
-}
-
-int main()
-{
-    sf::RenderWindow ventana(sf::VideoMode(800, 600), "Menu de Inicio");
-
-    // Cargar fuente
-    sf::Font font;
-    if (!font.loadFromFile("assets/fonts/Robotica.ttf"))
-    {
-        std::cerr << "Error al cargar la fuente\n";
-        return -1;
-    }
-
-    // Cargar música
-    sf::Music music;
-    if (!music.openFromFile("assets/music/Menu.ogg"))
-    {
-        std::cerr << "Error al cargar la música\n";
-        return -1;
-    }
-    music.setLoop(true);
-    music.play();
-
-    // Cargar imagen de fondo
-    sf::Texture texturaFondo;
-    if (!texturaFondo.loadFromFile("assets/images/Robotman2.jpg"))
-    {
-        std::cerr << "Error al cargar la imagen de fondo\n";
-        return -1;
-    }
-    sf::Sprite spriteFondo(texturaFondo);
-
-    // Opciones del menú
-    std::vector<std::string> opciones = {"JUGAR", "CONTROLES", "SALIR"};
-    std::vector<sf::Text> textosMenu;
-
-    for (size_t i = 0; i < opciones.size(); ++i)
-    {
-        sf::Text text(opciones[i], font, 40);
-        text.setPosition(300, 200 + i * 50);
-        text.setFillColor(sf::Color::White);
-        textosMenu.push_back(text);
-    }
-
-    int opcionSeleccionada = 0;
-    textosMenu[opcionSeleccionada].setFillColor(sf::Color::Red);
-
-    while (ventana.isOpen())
-    {
-        sf::Event evento;
-        while (ventana.pollEvent(evento))
-        {
-            if (evento.type == sf::Event::Closed)
-            {
-                ventana.close();
-            }
-            if (evento.type == sf::Event::KeyPressed)
-            {
-                if (evento.key.code == sf::Keyboard::Up)
-                {
-                    textosMenu[opcionSeleccionada].setFillColor(sf::Color::White);
-                    opcionSeleccionada = (opcionSeleccionada - 1 + opciones.size()) % opciones.size();
-                    textosMenu[opcionSeleccionada].setFillColor(sf::Color::Red);
-                }
-                else if (evento.key.code == sf::Keyboard::Down)
-                {
-                    textosMenu[opcionSeleccionada].setFillColor(sf::Color::White);
-                    opcionSeleccionada = (opcionSeleccionada + 1) % opciones.size();
-                    textosMenu[opcionSeleccionada].setFillColor(sf::Color::Red);
-                }
-                else if (evento.key.code == sf::Keyboard::Enter)
-                {
-                    if (opciones[opcionSeleccionada] == "JUGAR")
-                    {
-                        std::cout << "Inicia el juego...\n"; // Aquí iría el código del juego
-                        ventana.close();
-                    }
-                    else if (opciones[opcionSeleccionada] == "CONTROLES")
-                    {
-                        mostrarConfiguracion(ventana, font);
-                    }
-                    else if (opciones[opcionSeleccionada] == "SALIR")
-                    {
-                        ventana.close();
-                    }
-                }
-            }
-        }
-
-        ventana.clear();
-        ventana.draw(spriteFondo); // Dibujar la imagen de fondo
-        for (const auto &texto : textosMenu)
-        {
-            ventana.draw(texto);
-        }
-        ventana.display();
-    }
-
-    return 0;
 }

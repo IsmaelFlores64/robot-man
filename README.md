@@ -7,6 +7,15 @@ The little boy always dreamed of fighting the evil that tormented the github rep
 Under the nickname Robot-man, the little boy decides to leave his folder seeking to fulfill his objective, destroy the Trojan army that plagued his community.  
 Will the little robot-man be able to defeat Error404 and save his friends?
 
+## Controls
+
+Keys Up/Down: Move into the menu  
+Enter: Select an option  
+Keys Right/Left: Move the character  
+Space: Shot  
+Up key (in the game): Jump  
+Escape: Go back to the game menu  
+
 ## Systems
 
 The project is developed on MinGW64 using Msys2  

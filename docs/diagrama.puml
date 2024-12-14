@@ -14,7 +14,7 @@ class LocalArcade
 class RobotmanJuego
 {
     -Enemigo: _Enemigo_[4]
-    -Robotman
+    -RobotMan
 }
 class Personaje
 class Escenario
@@ -39,17 +39,23 @@ class Computadora
 Computadora *--RobotmanJuego
 RobotmanJuego *--Mapa
 Mapa --|> Nivel
+Mapa *-- Plataforma
+Mapa *-- Musica
 RobotmanJuego *-- Personaje
-Robotman --|> Personaje
-Robotman *-- Color
+RobotMan --|> Personaje
+RobotMan *-- Color
 Enemigo --|> Personaje
 Enemigo *-- Color
 RobotmanJuego *-- Fantasma
 LocalArcade *-- Computadora
+Computadora *-- RobotmanJuego
 Enemigo *-- Movimiento
-Jugador o-- Robotman
+Jugador o-- RobotMan
 Nivel *-- Dificultad
 Animacion o-- Movimiento
 Escenario *-- Mapa
+Arma *-- Bala
+RobotMan *-- Arma
+RobotmanJuego o-- RobotMan
 
 @enduml

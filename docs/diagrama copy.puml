@@ -1,0 +1,70 @@
+@startuml Robot-man
+class MenuPrincipal{
+    +NavegarArriba()
+    +NavegarAbajo()
+    +SeleccionarOpcion()
+    +MostrarMenu()
+}
+class Juego{
+    +Iniciar()
+    +Actializar()
+    +Renderizar()
+    +ProcesarEntrada()
+}
+class Jugador{
+    +MoverIzquierda()
+    +MoverDerecha()
+    +Saltar()
+    +Disparar()
+    -bool MirandoDerecha
+    -bool Puedesaltar
+}
+class Bala{
+    +ActualizarPosicion()
+    +Renderizar()
+    -bool MovimientoDerecha
+    -float velocidad
+}
+class MundoFisico{
+    +CrearCuerpoEstatico(posicion, tamaño)
+    +CrearCuerpoDinamico(posicion, tamaño)
+    +SimularPaso(deltatiempo)
+}
+class OpcionMenu{
+    +MostrarOpcion()
+    +Resaltar()
+    +Seleccionar()
+}
+class AnimacionSprite{
+    +ReproducirAnimacion()
+    +EstablecerFotograma()
+    +DetenerAnimacion()
+    -int FotogramaActual
+    -float TiempoPorFotograma
+}
+class GestorMusica{
+    +ReproducirMusicaFondo()
+    +PausaMusical()
+    +DetenerMusica()
+    -string ArchivoMusica
+}
+class GestorRecursos{
+    +CargarTextura(archivo)
+    +CargarFuente(archivo)
+    +CargarSonido(archivo)
+    +ObtenerTextura()
+    +ObtenerFuerte()
+    +ObtenerSonido()
+}
+
+MenuPrincipal *-- "1..*" OpcionMenu
+Juego *-- "1" MenuPrincipal
+Juego o-- "1" Jugador
+Juego *-- "0..*" Bala
+Juego *-- "1" MundoFisico
+Juego *-- "1" AnimacionSprite
+Juego *-- "1" GestorMusica
+Juego *-- "1" GestorRecursos
+Jugador *-- "1" MundoFisico
+Jugador <|-- Enemigo
+@enduml

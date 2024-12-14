@@ -14,12 +14,12 @@ void mostrarConfiguracion(sf::RenderWindow &ventana, const sf::Font &font)
     titulo.setFillColor(sf::Color::Yellow);
 
     sf::Text detalles(
-        "- Flechas Arriba/Abajo: Moverse por el menu\n"
-        "- Enter: Seleccionar una opcion\n"
-        "- Flechas Izquierda/Derecha: Mover personaje\n"
-        "- Barra Espaciadora: Disparar\n"
-        "- Flecha Arriba (en el juego): Saltar\n"
-        "- Escape: Regresar al menu principal",
+        "- Up/Down: Move into the menu\n"  
+        "- Enter: Select an option\n"  
+        "- Right/Left: Move the character\n"
+        "- Space: Shot\n"
+        "- Up (in the game): Jump\n"
+        "- Escape: Go back to the game menu\n",
         font, 20);
     detalles.setPosition(100, 150);
     detalles.setFillColor(sf::Color::White);
@@ -92,7 +92,7 @@ int main()
     spriteFondo.setPosition(ventana.getSize().x / 2.0f, ventana.getSize().y / 2.0f);
 
     // Opciones del menú
-    std::vector<std::string> opciones = {"JUGAR", "CONTROLES", "SALIR"};
+    std::vector<std::string> opciones = {"PLAY", "CONTROLS", "EXIT"};
     std::vector<sf::Text> textosMenu;
 
     for (size_t i = 0; i < opciones.size(); ++i)
@@ -131,7 +131,7 @@ int main()
                 }
                 else if (evento.key.code == sf::Keyboard::Enter)
                 {
-                    if (opciones[opcionSeleccionada] == "JUGAR")
+                    if (opciones[opcionSeleccionada] == "PLAY")
                     {
                         std::cout << "Inicia el juego...\n";
 
@@ -345,11 +345,11 @@ ventana.draw(spriteBack); // Dibujar la imagen de fondo
 
                         ventana.close();
                     }
-                    else if (opciones[opcionSeleccionada] == "CONTROLES")
+                    else if (opciones[opcionSeleccionada] == "CONTROLS")
                     {
                         mostrarConfiguracion(ventana, font);
                     }
-                    else if (opciones[opcionSeleccionada] == "SALIR")
+                    else if (opciones[opcionSeleccionada] == "EXIT")
                     {
                         ventana.close();
                     }
